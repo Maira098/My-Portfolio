@@ -387,6 +387,165 @@
             transform: translateY(-5px);
         }
 
+        .clickable-cert {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .view-certs {
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-top: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .clickable-cert:hover .view-certs {
+            opacity: 1;
+        }
+
+        /* Certifications Modal */
+        .cert-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .cert-modal.active {
+            display: flex;
+        }
+
+        .cert-modal-content {
+            background: white;
+            border-radius: 16px;
+            max-width: 800px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .cert-modal-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--highlight) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 16px 16px 0 0;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .cert-modal-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .cert-modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .cert-modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .cert-modal-body {
+            padding: 2rem;
+        }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .cert-card {
+            background: #f9fafb;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent);
+            transition: all 0.3s;
+        }
+
+        .cert-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        .cert-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cert-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .cert-issuer {
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .cert-date {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .cert-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .cert-link:hover {
+            color: var(--highlight);
+            gap: 0.8rem;
+        }
+
+        .empty-certs {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-light);
+        }
+
+        .empty-certs-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
         .stat-number {
             font-family: 'Playfair Display', serif;
             font-size: 2.5rem;
@@ -538,6 +697,24 @@
             justify-content: center;
             font-size: 3rem;
             color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            background: linear-gradient(135deg, var(--highlight), var(--accent));
         }
 
         .project-content {
@@ -1308,7 +1485,7 @@
             </div>
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-number">3.1</div>
+                    <div class="stat-number">3.3</div>
                     <div class="stat-label">CGPA</div>
                 </div>
                 <div class="stat-card">
@@ -1319,9 +1496,10 @@
                     <div class="stat-number">4</div>
                     <div class="stat-label">Active Roles</div>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-number">2</div>
+                <div class="stat-card clickable-cert" id="certStatCard">
+                    <div class="stat-number" id="certCount">2</div>
                     <div class="stat-label">Certifications</div>
+                    <div class="view-certs">View All →</div>
                 </div>
             </div>
         </div>
@@ -1644,7 +1822,7 @@
                             <h3 class="experience-title">Campus Ambassador</h3>
                             <div class="experience-organization">Qubit Dynamics</div>
                         </div>
-                        <div class="experience-period">Aug 2025 – Present</div>
+                        <div class="experience-period">Aug 2025 – Oct 2025</div>
                     </div>
                     <div class="experience-description">
                         <ul>
@@ -1712,17 +1890,6 @@
                 <span class="social-label">Email</span>
             </a>
         </div>
-
-        <div class="contact-info">
-            <div class="contact-item">
-                <div class="contact-item-icon">📍</div>
-                <div class="contact-item-text">Rawalpindi, Pakistan</div>
-            </div>
-            <div class="contact-item">
-                <div class="contact-item-icon">📞</div>
-                <div class="contact-item-text">+92 319-5711919</div>
-            </div>
-        </div>
     </section>
 
     <!-- Admin Panel Toggle Button -->
@@ -1749,7 +1916,7 @@
                     <input type="hidden" id="projectId">
                     
                     <div class="form-group">
-                        <label for="projectEmoji">Project Icon (Emoji)</label>
+                        <label for="projectEmoji">Project Icon (Emoji) - Fallback if no image</label>
                         <input type="text" id="projectEmoji" placeholder="Click to select emoji" readonly>
                         <div class="emoji-picker" id="emojiPicker" style="display: none;">
                             <span class="emoji-option" data-emoji="🚀">🚀</span>
@@ -1776,6 +1943,18 @@
                             <span class="emoji-option" data-emoji="💡">💡</span>
                             <span class="emoji-option" data-emoji="🔧">🔧</span>
                             <span class="emoji-option" data-emoji="📦">📦</span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="projectImage">Project Cover Image *</label>
+                        <input type="file" id="projectImage" accept="image/*" style="padding: 0.5rem;">
+                        <small style="color: var(--text-light); display: block; margin-top: 0.5rem;">
+                            Upload a screenshot or image of your project (JPG, PNG, GIF)
+                        </small>
+                        <div id="imagePreview" style="margin-top: 1rem; display: none;">
+                            <img src="" alt="Preview" style="width: 100%; max-height: 200px; object-fit: cover; border-radius: 8px;">
+                            <button type="button" id="removeImage" class="btn-admin btn-admin-secondary btn-admin-small" style="margin-top: 0.5rem;">Remove Image</button>
                         </div>
                     </div>
 
@@ -1820,6 +1999,69 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Certifications Management -->
+            <div class="admin-section">
+                <h3 id="certFormTitle">Add New Certification</h3>
+                <form id="certificationForm">
+                    <input type="hidden" id="certificationId">
+                    
+                    <div class="form-group">
+                        <label for="certTitle">Certification Title *</label>
+                        <input type="text" id="certTitle" placeholder="e.g., Google Agile Essentials" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="certIssuer">Issuing Organization *</label>
+                        <input type="text" id="certIssuer" placeholder="e.g., Google, Coursera, AWS" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="certDate">Date Issued</label>
+                        <input type="month" id="certDate" placeholder="YYYY-MM">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="certLink">Credential URL *</label>
+                        <input type="url" id="certLink" placeholder="https://coursera.org/verify/..." required>
+                    </div>
+
+                    <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                        <button type="submit" class="btn-admin btn-admin-primary" id="certSubmitBtn">Add Certification</button>
+                        <button type="button" class="btn-admin btn-admin-secondary" id="certCancelBtn">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Certifications List -->
+            <div class="admin-section">
+                <h3>Your Certifications</h3>
+                <div class="projects-list-admin" id="certificationsList">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🎓</div>
+                        <p>No certifications yet. Add your first certification above!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Certifications Modal -->
+    <div class="cert-modal" id="certModal">
+        <div class="cert-modal-content">
+            <div class="cert-modal-header">
+                <h2>My Certifications</h2>
+                <p style="opacity: 0.9; margin-top: 0.5rem;">Professional certifications and achievements</p>
+                <button class="cert-modal-close" id="certModalClose">×</button>
+            </div>
+            <div class="cert-modal-body">
+                <div class="cert-grid" id="certGrid">
+                    <div class="empty-certs">
+                        <div class="empty-certs-icon">🎓</div>
+                        <p>No certifications added yet.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1831,8 +2073,11 @@
     <script>
         // Projects data management
         let projects = [];
+        let certifications = [];
         let currentTechTags = [];
         let editingProjectId = null;
+        let editingCertId = null;
+        let currentImageData = null;
 
         // Load projects from localStorage
         function loadProjects() {
@@ -1845,6 +2090,7 @@
                     {
                         id: Date.now() + 1,
                         emoji: '🏥',
+                        image: '',
                         title: 'Healthcare Management System',
                         description: 'A comprehensive system for managing patient records, appointments, and medical history with secure authentication and real-time updates.',
                         technologies: ['Flutter', 'Firebase', 'Dart'],
@@ -1853,6 +2099,7 @@
                     {
                         id: Date.now() + 2,
                         emoji: '📊',
+                        image: '',
                         title: 'Data Structures Visualizer',
                         description: 'Interactive visualization tool for common data structures including linked lists, trees, and graphs to help students understand complex concepts.',
                         technologies: ['C++', 'Data Structures', 'Algorithms'],
@@ -1861,6 +2108,7 @@
                     {
                         id: Date.now() + 3,
                         emoji: '🌐',
+                        image: '',
                         title: 'GDG Community Platform',
                         description: 'Web platform for Google Developer Groups featuring event management, member registration, and resource sharing capabilities.',
                         technologies: ['HTML', 'CSS', 'JavaScript', 'PHP'],
@@ -1871,9 +2119,50 @@
             }
         }
 
+        // Load certifications from localStorage
+        function loadCertifications() {
+            const savedCerts = localStorage.getItem('portfolioCertifications');
+            if (savedCerts) {
+                certifications = JSON.parse(savedCerts);
+            } else {
+                // Default certifications
+                certifications = [
+                    {
+                        id: Date.now() + 1,
+                        title: 'BootCamp\'2025 Flutter',
+                        issuer: 'Credsverse',
+                        date: '2025-01',
+                        link: 'https://credsverse.com/credentials/a9b66c70-de2e-4997-83f2-97169630fc8a'
+                    },
+                    {
+                        id: Date.now() + 2,
+                        title: 'Google Agile Essentials',
+                        issuer: 'Coursera',
+                        date: '2024-12',
+                        link: 'https://coursera.org/share/3f2be86cb0b6d0caab78cf9b72810319'
+                    }
+                ];
+                saveCertifications();
+            }
+        }
+
         // Save projects to localStorage
         function saveProjects() {
             localStorage.setItem('portfolioProjects', JSON.stringify(projects));
+        }
+
+        // Save certifications to localStorage
+        function saveCertifications() {
+            localStorage.setItem('portfolioCertifications', JSON.stringify(certifications));
+            updateCertCount();
+        }
+
+        // Update certification count
+        function updateCertCount() {
+            const certCount = document.getElementById('certCount');
+            if (certCount) {
+                certCount.textContent = certifications.length;
+            }
         }
 
         // Render projects on the main page
@@ -1891,26 +2180,102 @@
                 return;
             }
 
-            projectsGrid.innerHTML = projects.map(project => `
-                <div class="project-card fade-in">
-                    <div class="project-image">${project.emoji}</div>
-                    <div class="project-content">
-                        <h3 class="project-title">${project.title}</h3>
-                        <p class="project-description">${project.description}</p>
-                        <div class="project-tech">
-                            ${project.technologies.map(tech => `<span class="tech-badge">${tech}</span>`).join('')}
-                        </div>
-                        <div class="project-links">
-                            <a href="${project.link}" target="_blank" class="project-link">
-                                <span>→</span> View Project
-                            </a>
+            projectsGrid.innerHTML = projects.map(project => {
+                const imageHtml = project.image 
+                    ? `<img src="${project.image}" alt="${project.title}" onerror="this.parentElement.innerHTML='<div class=\\'project-image-placeholder\\'>${project.emoji}</div>'">`
+                    : `<div class="project-image-placeholder">${project.emoji}</div>`;
+                
+                return `
+                    <div class="project-card fade-in">
+                        <div class="project-image">${imageHtml}</div>
+                        <div class="project-content">
+                            <h3 class="project-title">${project.title}</h3>
+                            <p class="project-description">${project.description}</p>
+                            <div class="project-tech">
+                                ${project.technologies.map(tech => `<span class="tech-badge">${tech}</span>`).join('')}
+                            </div>
+                            <div class="project-links">
+                                <a href="${project.link}" target="_blank" class="project-link">
+                                    <span>→</span> View Project
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
 
             // Re-observe fade-in elements
             document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        }
+
+        // Render certifications in modal
+        function renderCertificationsModal() {
+            const certGrid = document.getElementById('certGrid');
+            if (!certGrid) return;
+
+            if (certifications.length === 0) {
+                certGrid.innerHTML = `
+                    <div class="empty-certs" style="grid-column: 1/-1;">
+                        <div class="empty-certs-icon">🎓</div>
+                        <p>No certifications added yet. Use the admin panel to add your certifications!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            certGrid.innerHTML = certifications.map(cert => {
+                const dateObj = cert.date ? new Date(cert.date + '-01') : null;
+                const formattedDate = dateObj ? dateObj.toLocaleDateString('en-US', { month: 'long', year: 'numeric' }) : 'Date not specified';
+                
+                return `
+                    <div class="cert-card">
+                        <div class="cert-icon">🏆</div>
+                        <div class="cert-title">${cert.title}</div>
+                        <div class="cert-issuer">${cert.issuer}</div>
+                        <div class="cert-date">${formattedDate}</div>
+                        <a href="${cert.link}" target="_blank" class="cert-link">
+                            View Credential <span>→</span>
+                        </a>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Render certifications in admin panel
+        function renderCertificationsList() {
+            const certsList = document.getElementById('certificationsList');
+            if (!certsList) return;
+
+            if (certifications.length === 0) {
+                certsList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🎓</div>
+                        <p>No certifications yet. Add your first certification above!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            certsList.innerHTML = certifications.map(cert => {
+                const dateObj = cert.date ? new Date(cert.date + '-01') : null;
+                const formattedDate = dateObj ? dateObj.toLocaleDateString('en-US', { month: 'short', year: 'numeric' }) : 'Date not specified';
+                
+                return `
+                    <div class="project-item-admin">
+                        <div class="project-item-header">
+                            <div>
+                                <span class="project-item-emoji">🏆</span>
+                                <span class="project-item-title">${cert.title}</span>
+                            </div>
+                            <div class="project-item-actions">
+                                <button class="btn-edit" onclick="editCertification(${cert.id})">Edit</button>
+                                <button class="btn-delete" onclick="deleteCertification(${cert.id})">Delete</button>
+                            </div>
+                        </div>
+                        <p class="project-item-description">${cert.issuer} • ${formattedDate}</p>
+                    </div>
+                `;
+            }).join('');
         }
 
         // Render projects in admin panel
@@ -1981,6 +2346,8 @@
             if (!project) return;
 
             editingProjectId = id;
+            currentImageData = project.image || null;
+            
             document.getElementById('formTitle').textContent = 'Edit Project';
             document.getElementById('submitBtn').textContent = 'Update Project';
             document.getElementById('projectId').value = id;
@@ -1990,6 +2357,15 @@
             document.getElementById('projectLink').value = project.link;
             currentTechTags = [...project.technologies];
             renderTechTags();
+
+            // Show image preview if exists
+            const preview = document.getElementById('imagePreview');
+            if (project.image) {
+                preview.style.display = 'block';
+                preview.querySelector('img').src = project.image;
+            } else {
+                preview.style.display = 'none';
+            }
 
             // Scroll to form
             document.querySelector('.admin-content').scrollTop = 0;
@@ -2005,33 +2381,88 @@
             }
         }
 
-        // Reset form
+        // Edit certification
+        function editCertification(id) {
+            const cert = certifications.find(c => c.id === id);
+            if (!cert) return;
+
+            editingCertId = id;
+            document.getElementById('certFormTitle').textContent = 'Edit Certification';
+            document.getElementById('certSubmitBtn').textContent = 'Update Certification';
+            document.getElementById('certificationId').value = id;
+            document.getElementById('certTitle').value = cert.title;
+            document.getElementById('certIssuer').value = cert.issuer;
+            document.getElementById('certDate').value = cert.date || '';
+            document.getElementById('certLink').value = cert.link;
+
+            // Scroll to form
+            const certForm = document.getElementById('certificationForm');
+            certForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Delete certification
+        function deleteCertification(id) {
+            if (confirm('Are you sure you want to delete this certification?')) {
+                certifications = certifications.filter(c => c.id !== id);
+                saveCertifications();
+                renderCertificationsList();
+                renderCertificationsModal();
+            }
+        }
+
+        // Reset project form
         function resetForm() {
             editingProjectId = null;
+            currentImageData = null;
             document.getElementById('formTitle').textContent = 'Add New Project';
             document.getElementById('submitBtn').textContent = 'Add Project';
             document.getElementById('projectForm').reset();
             document.getElementById('projectId').value = '';
+            document.getElementById('imagePreview').style.display = 'none';
+            document.getElementById('projectImage').value = '';
             currentTechTags = [];
             renderTechTags();
+        }
+
+        // Reset certification form
+        function resetCertForm() {
+            editingCertId = null;
+            document.getElementById('certFormTitle').textContent = 'Add New Certification';
+            document.getElementById('certSubmitBtn').textContent = 'Add Certification';
+            document.getElementById('certificationForm').reset();
+            document.getElementById('certificationId').value = '';
         }
 
         // Initialize admin panel
         document.addEventListener('DOMContentLoaded', function() {
             loadProjects();
+            loadCertifications();
             renderProjectsGrid();
             renderProjectsList();
+            renderCertificationsList();
+            renderCertificationsModal();
+            updateCertCount();
 
             const adminToggle = document.getElementById('adminToggle');
             const adminPanel = document.getElementById('adminPanel');
             const adminOverlay = document.getElementById('adminOverlay');
             const closeAdmin = document.getElementById('closeAdmin');
             const projectForm = document.getElementById('projectForm');
+            const certificationForm = document.getElementById('certificationForm');
             const addTechBtn = document.getElementById('addTechBtn');
             const techInput = document.getElementById('techInput');
             const cancelBtn = document.getElementById('cancelBtn');
+            const certCancelBtn = document.getElementById('certCancelBtn');
             const emojiPicker = document.getElementById('emojiPicker');
             const projectEmoji = document.getElementById('projectEmoji');
+            const projectImage = document.getElementById('projectImage');
+            const imagePreview = document.getElementById('imagePreview');
+            const removeImage = document.getElementById('removeImage');
+            const certStatCard = document.getElementById('certStatCard');
+            const certModal = document.getElementById('certModal');
+            const certModalClose = document.getElementById('certModalClose');
+
+            let currentImageData = null;
 
             // Toggle admin panel
             adminToggle.addEventListener('click', () => {
@@ -2047,6 +2478,50 @@
             adminOverlay.addEventListener('click', () => {
                 adminPanel.classList.remove('active');
                 adminOverlay.classList.remove('active');
+            });
+
+            // Certifications modal
+            certStatCard.addEventListener('click', () => {
+                certModal.classList.add('active');
+            });
+
+            certModalClose.addEventListener('click', () => {
+                certModal.classList.remove('active');
+            });
+
+            certModal.addEventListener('click', (e) => {
+                if (e.target === certModal) {
+                    certModal.classList.remove('active');
+                }
+            });
+
+            // Image upload and preview
+            projectImage.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    // Check file size (limit to 5MB)
+                    if (file.size > 5 * 1024 * 1024) {
+                        alert('Image size should be less than 5MB');
+                        projectImage.value = '';
+                        return;
+                    }
+
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        currentImageData = event.target.result;
+                        imagePreview.style.display = 'block';
+                        imagePreview.querySelector('img').src = currentImageData;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+
+            // Remove image
+            removeImage.addEventListener('click', () => {
+                currentImageData = null;
+                projectImage.value = '';
+                imagePreview.style.display = 'none';
+                imagePreview.querySelector('img').src = '';
             });
 
             // Emoji picker
@@ -2081,12 +2556,16 @@
                 }
             });
 
-            // Cancel button
+            // Cancel buttons
             cancelBtn.addEventListener('click', () => {
                 resetForm();
             });
 
-            // Form submission
+            certCancelBtn.addEventListener('click', () => {
+                resetCertForm();
+            });
+
+            // Project form submission
             projectForm.addEventListener('submit', (e) => {
                 e.preventDefault();
 
@@ -2112,6 +2591,7 @@
                         projects[index] = {
                             id: editingProjectId,
                             emoji,
+                            image: currentImageData || '',
                             title,
                             description,
                             technologies: [...currentTechTags],
@@ -2123,6 +2603,7 @@
                     projects.push({
                         id: Date.now(),
                         emoji,
+                        image: currentImageData || '',
                         title,
                         description,
                         technologies: [...currentTechTags],
@@ -2135,6 +2616,50 @@
                 renderProjectsGrid();
                 resetForm();
                 alert(editingProjectId ? 'Project updated successfully!' : 'Project added successfully!');
+            });
+
+            // Certification form submission
+            certificationForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const title = document.getElementById('certTitle').value.trim();
+                const issuer = document.getElementById('certIssuer').value.trim();
+                const date = document.getElementById('certDate').value;
+                const link = document.getElementById('certLink').value.trim();
+
+                if (!title || !issuer || !link) {
+                    alert('Please fill in all required fields');
+                    return;
+                }
+
+                if (editingCertId) {
+                    // Update existing certification
+                    const index = certifications.findIndex(c => c.id === editingCertId);
+                    if (index !== -1) {
+                        certifications[index] = {
+                            id: editingCertId,
+                            title,
+                            issuer,
+                            date,
+                            link
+                        };
+                    }
+                } else {
+                    // Add new certification
+                    certifications.push({
+                        id: Date.now(),
+                        title,
+                        issuer,
+                        date,
+                        link
+                    });
+                }
+
+                saveCertifications();
+                renderCertificationsList();
+                renderCertificationsModal();
+                resetCertForm();
+                alert(editingCertId ? 'Certification updated successfully!' : 'Certification added successfully!');
             });
         });
 
